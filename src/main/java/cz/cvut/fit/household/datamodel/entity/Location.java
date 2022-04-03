@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,21 +16,27 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseHold {
+public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne
+    @NotNull
+    private HouseHold houseHold;
+
+    @OneToMany(mappedBy = "location")
+    private List<Copy> copies;
+
+    @ManyToOne
+    @JoinColumn(name = "main_id")
+    private Location mainLocation;
+
+    @OneToMany(mappedBy = "mainLocation", cascade = CascadeType.REMOVE)
+    private List<Location> subLocations = new ArrayList<>();
+
     @NotBlank
     private String title;
 
-    @OneToMany(mappedBy = "houseHold")
-    @NotNull
-    private List<Membership> memberships;
-
-    @OneToMany(mappedBy = "houseHold")
-    private List<Task> tasks;
-
-    @OneToMany(mappedBy = "houseHold")
-    private List<Location> locations;
+    private String description;
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,14 +20,19 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToMany(mappedBy = "category")
+    private List<Item> items;
+
+
+    @ManyToOne
+    @JoinColumn(name = "main_id")
+    private Category mainCategory;
+
+    @OneToMany(mappedBy = "mainCategory", cascade = CascadeType.REMOVE)
+    private List<Category> subCategories = new ArrayList<>();
+
     @NotBlank
     private String title;
 
     private String description;
-
-    @OneToMany
-    private List<ItemType> items;
-
-    @OneToMany
-    private List<Category> subcategories;
 }

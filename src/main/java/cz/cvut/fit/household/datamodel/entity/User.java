@@ -32,6 +32,6 @@ public class User {
     @Email
     private String mail;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Membership> memberships;
 }

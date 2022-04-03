@@ -29,5 +29,12 @@ public class Membership {
 
     @OneToMany(mappedBy = "assignee")
     private List<Task> assignedTasks;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    @NotNull
+    private HouseHold houseHold;
 }
 

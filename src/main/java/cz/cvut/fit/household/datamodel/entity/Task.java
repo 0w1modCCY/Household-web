@@ -33,5 +33,9 @@ public class Task {
     @ManyToOne
     private Membership assignee;
 
+    @ManyToOne
+    @NotNull
+    private HouseHold houseHold;
+
     private TaskState state;
 }

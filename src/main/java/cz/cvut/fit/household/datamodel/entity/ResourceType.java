@@ -5,17 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseHold {
+public class ResourceType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,13 +24,5 @@ public class HouseHold {
     @NotBlank
     private String title;
 
-    @OneToMany(mappedBy = "houseHold")
-    @NotNull
-    private List<Membership> memberships;
-
-    @OneToMany(mappedBy = "houseHold")
-    private List<Task> tasks;
-
-    @OneToMany(mappedBy = "houseHold")
-    private List<Location> locations;
+    private String unit;
 }

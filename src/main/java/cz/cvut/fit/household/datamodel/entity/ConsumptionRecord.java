@@ -5,28 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Item {
+public class ConsumptionRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @OneToMany(mappedBy = "item")
-    private List<Copy> copies;
-
-    @ManyToOne
-    private Category category;
-
-    @NotBlank
-    private String title;
-
-    private String description;
 }
