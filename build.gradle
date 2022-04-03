@@ -39,6 +39,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compileOnly("org.mapstruct:mapstruct-jdk8:${mapstructVersion}")
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    implementation 'javax.validation:validation-api:2.0.1.Final'
 }
 
 tasks.named('test') {
