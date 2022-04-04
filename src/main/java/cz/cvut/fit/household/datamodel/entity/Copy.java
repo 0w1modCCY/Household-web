@@ -18,11 +18,11 @@ public class Copy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private Item item;
-
-    @ManyToOne
-    private Location location;
+//    @ManyToOne
+//    private Item item;
+//
+//    @ManyToOne
+//    private Location location;
 
     private String description;
 

@@ -2,10 +2,11 @@ plugins {
     id 'org.springframework.boot' version '2.6.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "io.swagger.core.v3.swagger-gradle-plugin" version "2.1.13"
 }
 
 ext{
-    mapstructVersion = "1.2.0.Final"
+    mapstructVersion = "1.5.0.RC1"
 }
 
 group = 'cz.cvut.fit'
@@ -30,16 +31,17 @@ compileJava {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compileOnly("org.mapstruct:mapstruct-jdk8:${mapstructVersion}")
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'io.swagger.core.v3:swagger-core:2.1.13'
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.0.RC1'
+    implementation 'org.mapstruct:mapstruct:1.5.0.RC1'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.5'
 }
 
 tasks.named('test') {

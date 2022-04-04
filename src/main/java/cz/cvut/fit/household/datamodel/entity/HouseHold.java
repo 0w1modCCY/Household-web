@@ -23,13 +23,13 @@ public class HouseHold {
     @NotBlank
     private String title;
 
-    @OneToMany(mappedBy = "houseHold")
-    @NotNull
-    private List<Membership> memberships;
-
-    @OneToMany(mappedBy = "houseHold")
-    private List<Task> tasks;
-
-    @OneToMany(mappedBy = "houseHold")
-    private List<Location> locations;
+//    @OneToMany(mappedBy = "houseHold")
+//    @NotNull
+//    private List<Membership> memberships;
+//
+//    @OneToMany(mappedBy = "houseHold")
+//    private List<Task> tasks;
+//
+//    @OneToMany(mappedBy = "houseHold")
+//    private List<Location> locations;
 }

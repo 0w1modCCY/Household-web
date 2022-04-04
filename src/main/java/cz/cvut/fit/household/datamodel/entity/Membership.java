@@ -24,17 +24,17 @@ public class Membership {
     @NotNull
     private LocalDate creationDate;
 
-    @OneToMany(mappedBy = "author")
-    private List<Task> createdTasks;
+//    @OneToMany(mappedBy = "author")
+//    private List<Task> createdTasks;
 
-    @OneToMany(mappedBy = "assignee")
-    private List<Task> assignedTasks;
+//    @OneToMany(mappedBy = "assignee")
+//    private List<Task> assignedTasks;
 
-    @ManyToOne
-    private User user;
+//    @ManyToOne
+//    private User user;
 
-    @ManyToOne
-    @NotNull
-    private HouseHold houseHold;
+//    @ManyToOne
+//    @NotNull
+//    private HouseHold houseHold;
 }
 

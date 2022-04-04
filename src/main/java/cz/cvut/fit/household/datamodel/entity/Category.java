@@ -20,16 +20,15 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "category")
-    private List<Item> items;
-
-
-    @ManyToOne
-    @JoinColumn(name = "main_id")
-    private Category mainCategory;
-
-    @OneToMany(mappedBy = "mainCategory", cascade = CascadeType.REMOVE)
-    private List<Category> subCategories = new ArrayList<>();
+//    @OneToMany(mappedBy = "category")
+//    private List<Item> items;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "main_id")
+//    private Category mainCategory;
+//
+//    @OneToMany(mappedBy = "mainCategory", cascade = CascadeType.REMOVE)
+//    private List<Category> subCategories = new ArrayList<>();
 
     @NotBlank
     private String title;

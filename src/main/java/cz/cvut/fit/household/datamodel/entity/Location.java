@@ -21,19 +21,19 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @NotNull
-    private HouseHold houseHold;
+//    @ManyToOne
+//    @NotNull
+//    private HouseHold houseHold;
 
-    @OneToMany(mappedBy = "location")
-    private List<Copy> copies;
-
-    @ManyToOne
-    @JoinColumn(name = "main_id")
-    private Location mainLocation;
-
-    @OneToMany(mappedBy = "mainLocation", cascade = CascadeType.REMOVE)
-    private List<Location> subLocations = new ArrayList<>();
+//    @OneToMany(mappedBy = "location")
+//    private List<Copy> copies;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "main_id")
+//    private Location mainLocation;
+//
+//    @OneToMany(mappedBy = "mainLocation", cascade = CascadeType.REMOVE)
+//    private List<Location> subLocations = new ArrayList<>();
 
     @NotBlank
     private String title;

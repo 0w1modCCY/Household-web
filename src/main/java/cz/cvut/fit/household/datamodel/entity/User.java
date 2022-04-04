@@ -30,8 +30,8 @@ public class User {
     private String lastName;
 
     @Email
-    private String mail;
+    private String email;
 
-    @OneToMany(mappedBy = "user")
-    private List<Membership> memberships;
+//    @OneToMany(mappedBy = "user")
+//    private List<Membership> memberships;
 }

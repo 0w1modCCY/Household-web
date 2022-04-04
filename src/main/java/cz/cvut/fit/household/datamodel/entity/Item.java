@@ -19,11 +19,11 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "item")
-    private List<Copy> copies;
-
-    @ManyToOne
-    private Category category;
+//    @OneToMany(mappedBy = "item")
+//    private List<Copy> copies;
+//
+//    @ManyToOne
+//    private Category category;
 
     @NotBlank
     private String title;

@@ -27,15 +27,15 @@ public class Task {
     // TODO: CONSIDER USING OFFSETDATETIME
     private LocalDateTime deadline;
 
-    @ManyToOne
-    private Membership author;
+//    @ManyToOne
+//    private Membership author;
 
-    @ManyToOne
-    private Membership assignee;
+//    @ManyToOne
+//    private Membership assignee;
 
-    @ManyToOne
-    @NotNull
-    private HouseHold houseHold;
+//    @ManyToOne
+//    @NotNull
+//    private HouseHold houseHold;
 
     private TaskState state;
 }
