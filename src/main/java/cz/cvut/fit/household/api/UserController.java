@@ -4,7 +4,6 @@ import cz.cvut.fit.household.datamodel.converter.UserConverter;
 import cz.cvut.fit.household.datamodel.dto.user.UserPostDTO;
 import cz.cvut.fit.household.datamodel.dto.user.UserResponseDTO;
 import cz.cvut.fit.household.datamodel.entity.User;
-import cz.cvut.fit.household.exception.InvalidEntityException;
 import cz.cvut.fit.household.exception.NonExistentEntityException;
 import cz.cvut.fit.household.exception.UsernameAlreadyExistsException;
 import cz.cvut.fit.household.service.interfaces.UserService;
@@ -13,17 +12,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Tag(name = "User API")
@@ -32,11 +27,16 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+
     private final UserConverter userConverter;
 
-    public UserController(UserService userService, UserConverter userConverter) {
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserController(UserService userService, UserConverter userConverter, BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.userConverter = userConverter;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -51,7 +51,10 @@ public class UserController {
             throw new UsernameAlreadyExistsException("User with username: " + userDTO.getUserInfo().getUsername() + " can not be created as it already exists");
         }
 
-        User createdUser = userService.createUser(userConverter.toModelFromPostDto(userDTO));
+        User user = userConverter.toModelFromPostDto(userDTO);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
+        User createdUser = userService.createUser(user);
         return userConverter.fromModelToResponseDto(createdUser);
     }
 
