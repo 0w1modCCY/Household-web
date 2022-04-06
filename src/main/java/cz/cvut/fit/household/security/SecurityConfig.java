@@ -13,10 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private AuthenticationProviderService authenticationProvider;
+    private final AuthenticationProviderService authenticationProvider;
 
     @Autowired
-    public void setAuthenticationProvider(@Lazy AuthenticationProviderService authenticationProvider) {
+    public SecurityConfig(@Lazy AuthenticationProviderService authenticationProvider) {
         this.authenticationProvider = authenticationProvider;
     }
 
