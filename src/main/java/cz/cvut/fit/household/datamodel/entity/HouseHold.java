@@ -23,9 +23,8 @@ public class HouseHold {
     @NotBlank
     private String title;
 
-//    @OneToMany(mappedBy = "houseHold")
-//    @NotNull
-//    private List<Membership> memberships;
+    @OneToMany(mappedBy = "houseHold")
+    private List<Membership> memberships;
 //
 //    @OneToMany(mappedBy = "houseHold")
 //    private List<Task> tasks;

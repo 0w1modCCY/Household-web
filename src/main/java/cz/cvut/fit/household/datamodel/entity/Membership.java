@@ -30,11 +30,10 @@ public class Membership {
 //    @OneToMany(mappedBy = "assignee")
 //    private List<Task> assignedTasks;
 
-//    @ManyToOne
-//    private User user;
+    @ManyToOne
+    private User user;
 
-//    @ManyToOne
-//    @NotNull
-//    private HouseHold houseHold;
+    @ManyToOne
+    private HouseHold houseHold;
 }
 

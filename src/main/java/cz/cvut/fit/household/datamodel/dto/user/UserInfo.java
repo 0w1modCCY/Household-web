@@ -1,5 +1,6 @@
 package cz.cvut.fit.household.datamodel.dto.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
