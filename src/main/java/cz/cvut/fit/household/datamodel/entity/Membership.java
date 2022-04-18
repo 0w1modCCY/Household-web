@@ -20,9 +20,7 @@ public class Membership {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // TODO: CONSIDER USING OFFSETDATETIME
-    @NotNull
-    private LocalDate creationDate;
+    private final LocalDate creationDate = LocalDate.now();
 
 //    @OneToMany(mappedBy = "author")
 //    private List<Task> createdTasks;
@@ -30,10 +28,10 @@ public class Membership {
 //    @OneToMany(mappedBy = "assignee")
 //    private List<Task> assignedTasks;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private HouseHold houseHold;
 }
 

@@ -1,13 +1,12 @@
 package cz.cvut.fit.household.datamodel.entity;
 
 import lombok.*;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,6 +33,12 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Authority> authorities;
-//    @OneToMany(mappedBy = "user")
-//    private List<Membership> memberships;
+
+    @OneToMany(mappedBy = "user")
+    private List<Membership> memberships = new ArrayList<>();
+
+    public void addMembership(Membership membership) {
+        memberships.add(membership);
+        membership.setUser(this);
+    }
 }

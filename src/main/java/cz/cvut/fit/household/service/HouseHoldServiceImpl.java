@@ -20,7 +20,7 @@ public class HouseHoldServiceImpl implements HouseHoldService {
     }
 
     @Override
-    public HouseHold createHousehold(HouseHold houseHold) {
+    public HouseHold createOrUpdateHousehold(HouseHold houseHold) {
         return houseHoldRepository.save(houseHold);
     }
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,12 +24,17 @@ public class HouseHold {
     @NotBlank
     private String title;
 
-    @OneToMany(mappedBy = "houseHold")
-    private List<Membership> memberships;
-//
+    @OneToMany(mappedBy = "houseHold", cascade = CascadeType.REMOVE)
+    private List<Membership> memberships = new ArrayList<>();
+
 //    @OneToMany(mappedBy = "houseHold")
 //    private List<Task> tasks;
 //
 //    @OneToMany(mappedBy = "houseHold")
 //    private List<Location> locations;
+
+    public void addMembership(Membership membership) {
+        memberships.add(membership);
+        membership.setHouseHold(this);
+    }
 }

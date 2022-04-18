@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface HouseHoldService {
 
-    HouseHold createHousehold(HouseHold houseHold);
+    HouseHold createOrUpdateHousehold(HouseHold houseHold);
 
     List<HouseHold> findAllHouseholds();
 
