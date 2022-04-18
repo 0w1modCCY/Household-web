@@ -7,6 +7,7 @@ import cz.cvut.fit.household.service.interfaces.HouseHoldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +28,22 @@ public class HouseHoldServiceImpl implements HouseHoldService {
     @Override
     public List<HouseHold> findAllHouseholds() {
         return houseHoldRepository.findAll();
+    }
+
+    @Override
+    public List<HouseHold> findHouseholdsByUsername(String username) {
+        List<HouseHold> houseHolds = houseHoldRepository.findAll();
+        List<HouseHold> resultHouseholds = new ArrayList<>();
+
+        for (HouseHold houseHold : houseHolds) {
+            for (Membership membership : houseHold.getMemberships()) {
+                if (membership.getUser().getUsername().equals(username)) {
+                    resultHouseholds.add(houseHold);
+                }
+            }
+        }
+
+        return resultHouseholds;
     }
 
     @Override

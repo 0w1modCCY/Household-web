@@ -6,7 +6,6 @@ import cz.cvut.fit.household.datamodel.entity.User;
 import cz.cvut.fit.household.service.interfaces.HouseHoldService;
 import cz.cvut.fit.household.service.interfaces.MembershipService;
 import cz.cvut.fit.household.service.interfaces.UserService;
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 @Controller
 public class HouseholdController {
@@ -41,13 +39,11 @@ public class HouseholdController {
         return "add-household";
     }
 
-//    @Transactional
     @PostMapping("/addhousehold")
     public String createHousehold(Authentication authentication, Model model,  @ModelAttribute HouseHold houseHold) {
         User user = userService.findUserByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Authenticated user no longer exists in the database"));
 
-        HouseHold createdHousehold = new HouseHold();
         Membership membership = new Membership();
 
         user.addMembership(membership);
@@ -56,7 +52,7 @@ public class HouseholdController {
         membershipService.createMembership(membership);
 
         model.addAttribute("houseHolds", householdService.findAllHouseholds());
-        return "profile";
+        return "welcome";
     }
 
     @GetMapping("/household/{id}/members")
@@ -66,10 +62,9 @@ public class HouseholdController {
     }
 
     @GetMapping("/household/del/{id}")
-    public String leaveHousehold(Model model, @PathVariable Long id) {
-//        throw new NotImplementedException();
+    public String leaveHousehold(@Autowired Authentication authentication, Model model, @PathVariable Long id) {
         householdService.deleteHouseholdById(id);
-        model.addAttribute("houseHolds", householdService.findAllHouseholds());
-        return "profile";
+        model.addAttribute("houseHolds", householdService.findHouseholdsByUsername(authentication.getName()));
+        return "welcome";
     }
 }

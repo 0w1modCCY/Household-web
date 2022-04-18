@@ -11,6 +11,8 @@ public interface HouseHoldService {
 
     List<HouseHold> findAllHouseholds();
 
+    List<HouseHold> findHouseholdsByUsername(String username);
+
     List<Membership> findMembershipsByHouseholdId(Long id);
 
     void deleteHouseholdById(Long id);
