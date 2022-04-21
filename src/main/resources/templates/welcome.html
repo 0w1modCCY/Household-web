@@ -24,7 +24,7 @@
     <tbody>
     <tr th:each="houseHold : ${houseHolds}">
         <td th:text="${houseHold.title}">Title</td>
-        <td><a href="#" th:href="@{'/household/' + ${houseHold.id} + '/members'}">members</a></td>
+        <td><a href="#" th:href="@{'/household/' + ${houseHold.id} + '/members'}">info</a></td>
         <td><a href="#" th:href="@{'/household/del/' + ${houseHold.id}}">leave</a></td>
     </tr>
     </tbody>

@@ -9,4 +9,6 @@ public interface MembershipService {
     Membership createMembership(Membership membership);
 
     List<Membership> findAllMemberships();
+
+    List<Membership> findMembershipsByUsername(String username);
 }

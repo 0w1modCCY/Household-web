@@ -7,7 +7,21 @@
 </head>
 <body>
 
-<h2>Your households:</h2>
+<a href="/addhousehold"><button type="button" class="btn btn-outline-primary">Invite user</button></a>
+
+<br>
+<br>
+
+<form th:action="@{/household/search}" method="GET">
+    <textarea  th:name="searchTerm" rows="2" cols="100" name="doc"></textarea>
+    <br>
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+</form>
+
+<br>
+<br>
+
+<h2>Members:</h2>
 
 <table class="table">
     <thead>
@@ -15,6 +29,7 @@
         <td>Title</td>
     </tr>
     </thead>
+
 
     <tbody>
     <tr th:each="member : ${members}">

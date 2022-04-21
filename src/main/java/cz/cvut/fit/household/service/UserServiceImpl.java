@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findUsersBySearchTerm(String searchTerm) {
+        return userRepository.findUsersByUsernameStartingWith(searchTerm);
+    }
+
+    @Override
     public Optional<User> findUserByUsername(String username) {
         return userRepository.findById(username);
     }

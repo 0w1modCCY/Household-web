@@ -9,6 +9,9 @@ public interface UserService {
     User createOrUpdateUser(User user);
 
     List<User> findAllUsers();
+
+    List<User> findUsersBySearchTerm(String searchTerm);
+
     Optional<User> findUserByUsername(String username);
 
     Boolean exists(String username);

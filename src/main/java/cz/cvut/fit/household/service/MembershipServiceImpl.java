@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MembershipServiceImpl implements MembershipService {
@@ -26,5 +27,10 @@ public class MembershipServiceImpl implements MembershipService {
     @Override
     public List<Membership> findAllMemberships() {
         return membershipRepository.findAll();
+    }
+
+    @Override
+    public List<Membership> findMembershipsByUsername(String username) {
+        return membershipRepository.findMembershipsByUsername(username);
     }
 }

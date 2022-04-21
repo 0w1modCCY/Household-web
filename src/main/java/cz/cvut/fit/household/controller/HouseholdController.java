@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
+import java.util.stream.Collectors;
 
 @Controller
 public class HouseholdController {
@@ -23,14 +21,12 @@ public class HouseholdController {
     private final HouseHoldService householdService;
     private final UserService userService;
     private final MembershipService membershipService;
-    private final EntityManager entityManager;
 
     @Autowired
-    public HouseholdController(HouseHoldService householdService, MembershipService membershipService, UserService userService, EntityManager entityManager) {
+    public HouseholdController(HouseHoldService householdService, MembershipService membershipService, UserService userService) {
         this.householdService = householdService;
         this.membershipService = membershipService;
         this.userService = userService;
-        this.entityManager = entityManager;
     }
 
     @GetMapping("/addhousehold")
@@ -58,6 +54,12 @@ public class HouseholdController {
     @GetMapping("/household/{id}/members")
     public String renderHouseholdMembersPage(Model model, @PathVariable Long id) {
         model.addAttribute("members", householdService.findMembershipsByHouseholdId(id));
+        return "members";
+    }
+
+    @GetMapping("/household/search")
+    public String renderHouseholdMembersPageWithSearchTerm(Model model, @RequestParam(name = "searchTerm") String searchTerm) {
+        model.addAttribute("members", membershipService.findMembershipsByUsername(searchTerm));
         return "members";
     }
 
