@@ -7,7 +7,29 @@
 </head>
 <body>
 
-<a href="/addhousehold"><button type="button" class="btn btn-outline-primary">Create new household</button></a>
+<a href="/households/add"><button type="button" class="btn btn-outline-primary">Create new household</button></a>
+
+<br>
+<br>
+
+<h2>Your are invited to households below:</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <td>Title</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="pendingHousehold : ${pendingHouseholds}">
+        <td th:text="${pendingHousehold.household.title}">Title</td>
+        <td><a href="#" th:href="@{'/household/' + ${pendingHousehold.household.id} + '/members'}">Accept</a></td>
+        <td><a href="#" th:href="@{'/household/' + ${pendingHousehold.household.id} + '/delete'}">Decline</a></td>
+    </tr>
+    </tbody>
+</table>
+
 
 <br>
 <br>
@@ -22,10 +44,10 @@
     </thead>
 
     <tbody>
-    <tr th:each="houseHold : ${houseHolds}">
-        <td th:text="${houseHold.title}">Title</td>
-        <td><a href="#" th:href="@{'/household/' + ${houseHold.id} + '/members'}">info</a></td>
-        <td><a href="#" th:href="@{'/household/del/' + ${houseHold.id}}">leave</a></td>
+    <tr th:each="activeHousehold : ${activeHouseholds}">
+        <td th:text="${activeHousehold.household.title}">Title</td>
+        <td><a href="#" th:href="@{'/household/' + ${activeHousehold.household.id} + '/members'}">info</a></td>
+        <td><a href="#" th:href="@{'/household/' + ${activeHousehold.household.id} + '/delete'}">leave</a></td>
     </tr>
     </tbody>
 </table>

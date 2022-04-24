@@ -1,13 +1,16 @@
 package cz.cvut.fit.household.service;
 
+import cz.cvut.fit.household.datamodel.entity.HouseHold;
 import cz.cvut.fit.household.datamodel.entity.Membership;
-import cz.cvut.fit.household.repository.MembershipRepository;
+import cz.cvut.fit.household.datamodel.entity.User;
+import cz.cvut.fit.household.repository.membership.MembershipRepository;
+import cz.cvut.fit.household.repository.filter.MembershipFilter;
 import cz.cvut.fit.household.service.interfaces.MembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MembershipServiceImpl implements MembershipService {
@@ -20,8 +23,17 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public Membership createMembership(Membership membership) {
+    public Membership createMembership(Membership membership, User user, HouseHold houseHold) {
+        user.addMembership(membership);
+        houseHold.addMembership(membership);
+
         return membershipRepository.save(membership);
+    }
+
+    @Override
+    @Transactional
+    public List<Membership> filterMemberships(MembershipFilter membershipFilter) {
+        return membershipRepository.filterMemberships(membershipFilter);
     }
 
     @Override

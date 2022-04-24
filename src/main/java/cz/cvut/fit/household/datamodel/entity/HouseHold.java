@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class HouseHold {
     @NotBlank
     private String title;
 
-    @OneToMany(mappedBy = "houseHold", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "household", cascade = CascadeType.REMOVE)
     private List<Membership> memberships = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "houseHold")
@@ -35,6 +34,6 @@ public class HouseHold {
 
     public void addMembership(Membership membership) {
         memberships.add(membership);
-        membership.setHouseHold(this);
+        membership.setHousehold(this);
     }
 }

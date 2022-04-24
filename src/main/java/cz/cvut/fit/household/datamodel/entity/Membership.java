@@ -1,5 +1,6 @@
 package cz.cvut.fit.household.datamodel.entity;
 
+import cz.cvut.fit.household.datamodel.enums.MembershipStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,9 @@ public class Membership {
 
     private final LocalDate creationDate = LocalDate.now();
 
+    @Enumerated(EnumType.STRING)
+    private MembershipStatus status;
+
 //    @OneToMany(mappedBy = "author")
 //    private List<Task> createdTasks;
 
@@ -32,6 +36,6 @@ public class Membership {
     private User user;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private HouseHold houseHold;
+    private HouseHold household;
 }
 

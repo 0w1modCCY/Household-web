@@ -10,7 +10,7 @@
 
 <h3 id="title">Create household</h3>
 
-<form action="#" th:action="@{/addhousehold}" th:object="${houseHold}" method="post">
+<form action="#" th:action="@{/households/add}" th:object="${houseHold}" method="post">
 
     <div class = "form-floating mb-3">
         <input type="text" th:field="*{title}" placeholder="Title" class="form-control" id="floatingInput">

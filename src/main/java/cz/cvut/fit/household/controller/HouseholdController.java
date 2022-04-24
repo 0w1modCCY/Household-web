@@ -3,6 +3,8 @@ package cz.cvut.fit.household.controller;
 import cz.cvut.fit.household.datamodel.entity.HouseHold;
 import cz.cvut.fit.household.datamodel.entity.Membership;
 import cz.cvut.fit.household.datamodel.entity.User;
+import cz.cvut.fit.household.datamodel.enums.MembershipStatus;
+import cz.cvut.fit.household.repository.filter.MembershipFilter;
 import cz.cvut.fit.household.service.interfaces.HouseHoldService;
 import cz.cvut.fit.household.service.interfaces.MembershipService;
 import cz.cvut.fit.household.service.interfaces.UserService;
@@ -11,9 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityManager;
-import java.util.stream.Collectors;
 
 @Controller
 public class HouseholdController {
@@ -29,41 +28,71 @@ public class HouseholdController {
         this.userService = userService;
     }
 
-    @GetMapping("/addhousehold")
+    @GetMapping("/households/add")
     public String renderCreateHouseholdPage(Model model) {
         model.addAttribute("houseHold", new HouseHold());
         return "add-household";
     }
 
-    @PostMapping("/addhousehold")
+    @PostMapping("/households/add")
     public String createHousehold(Authentication authentication, Model model,  @ModelAttribute HouseHold houseHold) {
         User user = userService.findUserByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Authenticated user no longer exists in the database"));
 
         Membership membership = new Membership();
+        membership.setStatus(MembershipStatus.ACTIVE);
 
-        user.addMembership(membership);
-        houseHold.addMembership(membership);
-
-        membershipService.createMembership(membership);
-
-        model.addAttribute("houseHolds", householdService.findAllHouseholds());
+        membershipService.createMembership(membership, user, houseHold);;
+        model.addAttribute("activeHouseholds", householdService.findHouseholdsByUsername(authentication.getName()));
         return "welcome";
     }
 
     @GetMapping("/household/{id}/members")
     public String renderHouseholdMembersPage(Model model, @PathVariable Long id) {
-        model.addAttribute("members", householdService.findMembershipsByHouseholdId(id));
+
+        model.addAttribute("householdId", id);
+
+        MembershipFilter pendingMember = MembershipFilter.builder()
+                .householdId(id)
+                .status(MembershipStatus.PENDING)
+                .build();
+
+        MembershipFilter activeMember = MembershipFilter.builder()
+                .householdId(id)
+                .status(MembershipStatus.ACTIVE)
+                .build();
+
+        model.addAttribute("pendingMembers", membershipService.filterMemberships(pendingMember));
+        model.addAttribute("activeMembers", membershipService.filterMemberships(activeMember));
         return "members";
     }
 
-    @GetMapping("/household/search")
-    public String renderHouseholdMembersPageWithSearchTerm(Model model, @RequestParam(name = "searchTerm") String searchTerm) {
-        model.addAttribute("members", membershipService.findMembershipsByUsername(searchTerm));
-        return "members";
+    @GetMapping("/household/{id}/invite")
+    public String renderInviteUserPage(@PathVariable Long id, Model model) {
+
+        model.addAttribute("users", userService.findAllUsers());
+        model.addAttribute("householdId", id);
+
+        return "invite-user";
     }
 
-    @GetMapping("/household/del/{id}")
+    @PostMapping("/household/{householdId}/invite")
+    public String inviteUser(@PathVariable(name = "householdId") Long householdId, @RequestParam String username, Model model) {
+        User user = userService.findUserByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User with given username does not exist"));
+
+        HouseHold houseHold = householdService.findHouseHoldById(householdId)
+                .orElseThrow(() -> new RuntimeException("Household with given id does not exist"));
+
+        Membership membership = new Membership();
+        membership.setStatus(MembershipStatus.PENDING);
+
+        membershipService.createMembership(membership, user, houseHold);
+        model.addAttribute("users", userService.findAllUsers());
+        return "invite-user";
+    }
+
+    @GetMapping("/household/{id}/delete")
     public String leaveHousehold(@Autowired Authentication authentication, Model model, @PathVariable Long id) {
         householdService.deleteHouseholdById(id);
         model.addAttribute("houseHolds", householdService.findHouseholdsByUsername(authentication.getName()));
