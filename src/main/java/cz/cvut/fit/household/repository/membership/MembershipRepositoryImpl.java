@@ -33,7 +33,7 @@ public class MembershipRepositoryImpl implements MembershipCustomRepository {
         }
 
         if (membershipFilter.getHouseholdId() != null) {
-            predicates.add(criteriaBuilder.equal(root.get("household").get("id"), membershipFilter.getUsername()));
+            predicates.add(criteriaBuilder.equal(root.get("household").get("id"), membershipFilter.getHouseholdId()));
         }
 
         if (membershipFilter.getStatus() != null) {

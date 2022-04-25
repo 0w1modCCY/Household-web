@@ -15,5 +15,9 @@ public interface MembershipService {
 
     List<Membership> findMembershipsByUsername(String username);
 
+    void acceptInvitation(Long membershipId);
+
+    void declineInvitation(Long membershipId);
+
     List<Membership> filterMemberships(MembershipFilter membershipFilter);
 }

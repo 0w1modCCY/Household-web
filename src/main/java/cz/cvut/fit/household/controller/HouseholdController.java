@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class HouseholdController {
 
@@ -92,8 +94,46 @@ public class HouseholdController {
         return "invite-user";
     }
 
+    @GetMapping("household/{householdId}/invitation/{membershipId}/accept")
+    public String acceptInvitation(@PathVariable Long householdId, @PathVariable Long membershipId, Model model) {
+        membershipService.acceptInvitation(membershipId);
+
+        MembershipFilter pendingMember = MembershipFilter.builder()
+                .householdId(householdId)
+                .status(MembershipStatus.PENDING)
+                .build();
+
+        MembershipFilter activeMember = MembershipFilter.builder()
+                .householdId(householdId)
+                .status(MembershipStatus.ACTIVE)
+                .build();
+
+        model.addAttribute("pendingMembers", membershipService.filterMemberships(pendingMember));
+        model.addAttribute("activeMembers", membershipService.filterMemberships(activeMember));
+        return "welcome";
+    }
+
+    @GetMapping("household/{householdId}/invitation/{membershipId}/decline")
+    public String declineInvitation(@PathVariable Long householdId, @PathVariable Long membershipId, Model model) {
+        membershipService.declineInvitation(membershipId);
+
+        MembershipFilter pendingMember = MembershipFilter.builder()
+                .householdId(householdId)
+                .status(MembershipStatus.PENDING)
+                .build();
+
+        MembershipFilter activeMember = MembershipFilter.builder()
+                .householdId(householdId)
+                .status(MembershipStatus.ACTIVE)
+                .build();
+
+        model.addAttribute("pendingMembers", membershipService.filterMemberships(pendingMember));
+        model.addAttribute("activeMembers", membershipService.filterMemberships(activeMember));
+        return "welcome";
+    }
+
     @GetMapping("/household/{id}/delete")
-    public String leaveHousehold(@Autowired Authentication authentication, Model model, @PathVariable Long id) {
+    public String leaveHousehold(Authentication authentication, @PathVariable Long id, Model model) {
         householdService.deleteHouseholdById(id);
         model.addAttribute("houseHolds", householdService.findHouseholdsByUsername(authentication.getName()));
         return "welcome";

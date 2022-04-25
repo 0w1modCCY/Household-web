@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping("/welcome")
-    public String renderWelcomePage(@Autowired Authentication authentication, Model model) {
+    public String renderWelcomePage(Authentication authentication, Model model) {
 
         MembershipFilter pendingHouseholds = MembershipFilter.builder()
                 .username(authentication.getName())
