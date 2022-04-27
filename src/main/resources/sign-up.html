@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+        body{
+            overflow: auto;
+        }
+        h1{
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        .login-content .input-div{
+            padding: 0px;
+        }
+        .login-btn{
+            display: flex;
+            justify-content: end;
+            text-decoration: none;
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <img class="wave" src="img/wave.png">
+    <div class="container">
+        <div class="img">
+            <img src="img/bg.svg">
+        </div>
+        <div class="login-content">
+            <form action="index.html">
+                <div style="display: flex; align-items: center;">
+                    <img src="img/avatar.svg">
+                    <h1 class="title" style="margin-left: 1rem;">Signup</h1>
+                </div>
+                
+                <div class="input-div">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Username</h5>
+                        <input type="text" class="input">
+                    </div>
+                </div>
+                <div class="input-div">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Firstname</h5>
+                        <input type="text" class="input">
+                    </div>
+                </div>
+                <div class="input-div">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Lastname</h5>
+                        <input type="text" class="input">
+                    </div>
+                </div>
+                <div class="input-div">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Email</h5>
+                        <input type="email" class="input">
+                    </div>
+                </div>
+                <div class="input-div">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Password</h5>
+                        <input type="password" class="input">
+                    </div>
+                </div>
+                <div style="display: flex;margin-top: 1rem;">
+                    <div style="flex: 50%;">
+                        <span class="login-btn">
+                            Already have an account?
+                            <a href="index.html" style="margin-left:5px;">Login</a>
+                        </span>
+                    </div>
+                </div>
+                <input type="submit" class="btn" value="Add User">
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>

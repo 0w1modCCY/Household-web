@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Members</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd85;
+        }
+
+        .create-household-btn {
+            border: none;
+            width: 10rem;
+            padding: 0.6rem;
+            border-radius: 5px;
+            background: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+        }
+
+        .search-input {
+            padding: 0.5rem;
+            width: 18rem;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid black;
+        }
+
+        .search-btn {
+            padding: 0.5rem;
+            background: no-repeat;
+            border-radius: 5px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="p-4">
+
+        <div class="d-flex justify-content-between">
+            <h3>Members - </h3>
+            <div>
+                <input type="text" placeholder="Search.." name="search" class="search-input">
+                <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+
+                <button class="create-household-btn">+ Invite User</button>
+            </div>
+        </div>
+        <table class="mt-4">
+            <tr class="bg-dark text-white">
+                <th>Title</th>
+                <th>Username</th>
+            </tr>
+            <tr>
+                <td>My household</td>
+                <td>User 1</td>
+            </tr>
+            <tr>
+                <td>My household</td>
+                <td>user 2</td>
+            </tr>
+            <tr>
+                <td>My household</td>
+                <td>User 3</td>
+            </tr>
+            <tr>
+                <td>My household</td>
+                <td>User 4</td>
+            </tr>
+            <tr>
+                <td>My household</td>
+                <td>User 5</td>
+            </tr>
+            <tr>
+                <td>My household</td>
+                <td>User 6</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>
