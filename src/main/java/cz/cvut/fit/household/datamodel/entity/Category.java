@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,4 +33,17 @@ public class Category {
     private String title;
 
     private String description;
+
+//    @ManyToOne
+//    private Category category;
+
+    @OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
+    private List<Item> items;
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+    public void deleteItem(Item item) {
+        items.remove(item);
+    }
 }

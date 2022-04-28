@@ -27,14 +27,24 @@ public class HouseHold {
     @OneToMany(mappedBy = "houseHold", cascade = CascadeType.REMOVE)
     private List<Membership> memberships = new ArrayList<>();
 
+    @OneToMany(mappedBy = "houseHold", cascade = CascadeType.REMOVE)
+    private List<Item> items=new ArrayList<>();
+
+    @OneToMany(mappedBy = "houseHold", cascade = CascadeType.REMOVE)
+    private List<Category> categories=new ArrayList<>();
+
 //    @OneToMany(mappedBy = "houseHold")
 //    private List<Task> tasks;
 //
-//    @OneToMany(mappedBy = "houseHold")
-//    private List<Location> locations;
+    @OneToMany(mappedBy = "houseHold", cascade = CascadeType.REMOVE)
+    private List<Location> locations=new ArrayList<>();
 
     public void addMembership(Membership membership) {
         memberships.add(membership);
         membership.setHouseHold(this);
+    }
+
+    public void addCategory(Category category) {
+        categories.add(category);
     }
 }
