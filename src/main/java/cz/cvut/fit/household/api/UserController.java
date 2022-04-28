@@ -1,6 +1,6 @@
 //package cz.cvut.fit.household.api;
 //
-//import cz.cvut.fit.household.datamodel.converter.UserConverter;
+//import cz.cvut.fit.household.datamodel.converter.interfaces.UserConverter;
 //import cz.cvut.fit.household.datamodel.dto.user.UserPostDTO;
 //import cz.cvut.fit.household.datamodel.dto.user.UserResponseDTO;
 //import cz.cvut.fit.household.datamodel.entity.User;
