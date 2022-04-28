@@ -45,7 +45,19 @@ public class HouseholdController {
         membership.setStatus(MembershipStatus.ACTIVE);
 
         membershipService.createMembership(membership, user, houseHold);;
-        model.addAttribute("activeHouseholds", householdService.findHouseholdsByUsername(authentication.getName()));
+
+        MembershipFilter pendingHouseholds = MembershipFilter.builder()
+                .username(authentication.getName())
+                .status(MembershipStatus.PENDING)
+                .build();
+
+        MembershipFilter activeHouseholds = MembershipFilter.builder()
+                .username(authentication.getName())
+                .status(MembershipStatus.ACTIVE)
+                .build();
+
+        model.addAttribute("pendingHouseholds", membershipService.filterMemberships(pendingHouseholds));
+        model.addAttribute("activeHouseholds", membershipService.filterMemberships(activeHouseholds));
         return "welcome";
     }
 
@@ -95,47 +107,61 @@ public class HouseholdController {
     }
 
     @GetMapping("household/{householdId}/invitation/{membershipId}/accept")
-    public String acceptInvitation(@PathVariable Long householdId, @PathVariable Long membershipId, Model model) {
+    public String acceptInvitation(Authentication authentication, @PathVariable Long householdId, @PathVariable Long membershipId, Model model) {
         membershipService.acceptInvitation(membershipId);
 
-        MembershipFilter pendingMember = MembershipFilter.builder()
-                .householdId(householdId)
+        MembershipFilter pendingHouseholds = MembershipFilter.builder()
+                .username(authentication.getName())
                 .status(MembershipStatus.PENDING)
                 .build();
 
-        MembershipFilter activeMember = MembershipFilter.builder()
-                .householdId(householdId)
+        MembershipFilter activeHouseholds = MembershipFilter.builder()
+                .username(authentication.getName())
                 .status(MembershipStatus.ACTIVE)
                 .build();
 
-        model.addAttribute("pendingMembers", membershipService.filterMemberships(pendingMember));
-        model.addAttribute("activeMembers", membershipService.filterMemberships(activeMember));
+        model.addAttribute("pendingHouseholds", membershipService.filterMemberships(pendingHouseholds));
+        model.addAttribute("activeHouseholds", membershipService.filterMemberships(activeHouseholds));
         return "welcome";
     }
 
+
     @GetMapping("household/{householdId}/invitation/{membershipId}/decline")
-    public String declineInvitation(@PathVariable Long householdId, @PathVariable Long membershipId, Model model) {
+    public String declineInvitation(Authentication authentication, @PathVariable Long householdId, @PathVariable Long membershipId, Model model) {
         membershipService.declineInvitation(membershipId);
 
-        MembershipFilter pendingMember = MembershipFilter.builder()
-                .householdId(householdId)
+        MembershipFilter pendingHouseholds = MembershipFilter.builder()
+                .username(authentication.getName())
                 .status(MembershipStatus.PENDING)
                 .build();
 
-        MembershipFilter activeMember = MembershipFilter.builder()
-                .householdId(householdId)
+        MembershipFilter activeHouseholds = MembershipFilter.builder()
+                .username(authentication.getName())
                 .status(MembershipStatus.ACTIVE)
                 .build();
 
-        model.addAttribute("pendingMembers", membershipService.filterMemberships(pendingMember));
-        model.addAttribute("activeMembers", membershipService.filterMemberships(activeMember));
+        model.addAttribute("pendingHouseholds", membershipService.filterMemberships(pendingHouseholds));
+        model.addAttribute("activeHouseholds", membershipService.filterMemberships(activeHouseholds));
         return "welcome";
     }
 
     @GetMapping("/household/{id}/delete")
     public String leaveHousehold(Authentication authentication, @PathVariable Long id, Model model) {
+
         householdService.deleteHouseholdById(id);
-        model.addAttribute("houseHolds", householdService.findHouseholdsByUsername(authentication.getName()));
+
+        MembershipFilter pendingHouseholds = MembershipFilter.builder()
+                .username(authentication.getName())
+                .status(MembershipStatus.PENDING)
+                .build();
+
+        MembershipFilter activeHouseholds = MembershipFilter.builder()
+                .username(authentication.getName())
+                .status(MembershipStatus.ACTIVE)
+                .build();
+
+        model.addAttribute("pendingHouseholds", membershipService.filterMemberships(pendingHouseholds));
+        model.addAttribute("activeHouseholds", membershipService.filterMemberships(activeHouseholds));
         return "welcome";
     }
 }

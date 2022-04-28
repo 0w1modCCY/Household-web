@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -48,6 +49,16 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.createOrUpdateUser(user);
         return "login";
+    }
+
+    @GetMapping("/users/search")
+    public String searchForUser(@RequestParam String searchTerm, Model model) {
+
+        var users = userService.findUsersBySearchTerm(searchTerm);
+
+        model.addAttribute("users", users);
+        model.addAttribute("householdId", 10L);
+        return "invite-user";
     }
 
     @GetMapping("/welcome")
