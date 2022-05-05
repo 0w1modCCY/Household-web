@@ -2,7 +2,7 @@ package cz.cvut.fit.household.service;
 
 import cz.cvut.fit.household.datamodel.entity.HouseHold;
 import cz.cvut.fit.household.datamodel.entity.Membership;
-import cz.cvut.fit.household.repository.HouseHoldRepository;
+import cz.cvut.fit.household.repository.household.jpa.HouseHoldRepository;
 import cz.cvut.fit.household.service.interfaces.HouseHoldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

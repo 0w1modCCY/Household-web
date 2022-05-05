@@ -1,7 +1,7 @@
 package cz.cvut.fit.household.service;
 
 import cz.cvut.fit.household.datamodel.entity.User;
-import cz.cvut.fit.household.repository.UserRepository;
+import cz.cvut.fit.household.repository.user.jpa.UserRepository;
 import cz.cvut.fit.household.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

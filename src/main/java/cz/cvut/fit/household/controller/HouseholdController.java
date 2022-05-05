@@ -148,7 +148,7 @@ public class HouseholdController {
     @GetMapping("/household/{id}/delete")
     public String leaveHousehold(Authentication authentication, @PathVariable Long id, Model model) {
 
-        householdService.deleteHouseholdById(id);
+        membershipService.leaveHousehold(id);
 
         MembershipFilter pendingHouseholds = MembershipFilter.builder()
                 .username(authentication.getName())

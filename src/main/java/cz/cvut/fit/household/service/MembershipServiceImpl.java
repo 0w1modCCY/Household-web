@@ -5,7 +5,7 @@ import cz.cvut.fit.household.datamodel.entity.Membership;
 import cz.cvut.fit.household.datamodel.entity.User;
 import cz.cvut.fit.household.datamodel.enums.MembershipStatus;
 import cz.cvut.fit.household.exception.NonExistentEntityException;
-import cz.cvut.fit.household.repository.membership.MembershipRepository;
+import cz.cvut.fit.household.repository.membership.jpa.MembershipRepository;
 import cz.cvut.fit.household.repository.filter.MembershipFilter;
 import cz.cvut.fit.household.service.interfaces.MembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +51,15 @@ public class MembershipServiceImpl implements MembershipService {
     public void declineInvitation(Long membershipId) {
         Membership membership = membershipRepository.findById(membershipId)
                 .orElseThrow(() -> new NonExistentEntityException("Membership with id: " + membershipId + " doesn't exist"));
+
+        membership.setStatus(MembershipStatus.DISABLED);
+        membershipRepository.save(membership);
+    }
+
+    @Override
+    public void leaveHousehold(Long id) {
+        Membership membership = membershipRepository.findById(id)
+                .orElseThrow(() -> new NonExistentEntityException("Membership with id: " + id + " doesn't exist"));
 
         membership.setStatus(MembershipStatus.DISABLED);
         membershipRepository.save(membership);

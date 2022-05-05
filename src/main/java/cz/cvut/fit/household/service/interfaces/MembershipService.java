@@ -19,5 +19,7 @@ public interface MembershipService {
 
     void declineInvitation(Long membershipId);
 
+    void leaveHousehold(Long id);
+
     List<Membership> filterMemberships(MembershipFilter membershipFilter);
 }

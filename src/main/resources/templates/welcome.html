@@ -47,7 +47,7 @@
     <tr th:each="activeHousehold : ${activeHouseholds}">
         <td th:text="${activeHousehold.household.title}">Title</td>
         <td><a href="#" th:href="@{'/household/' + ${activeHousehold.household.id} + '/members'}">info</a></td>
-        <td><a href="#" th:href="@{'/household/' + ${activeHousehold.household.id} + '/delete'}">leave</a></td>
+        <td><a href="#" th:href="@{'/household/' + ${activeHousehold.id} + '/delete'}">leave</a></td>
     </tr>
     </tbody>
 </table>

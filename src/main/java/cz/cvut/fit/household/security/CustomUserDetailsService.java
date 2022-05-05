@@ -1,7 +1,7 @@
 package cz.cvut.fit.household.security;
 
 import cz.cvut.fit.household.datamodel.entity.User;
-import cz.cvut.fit.household.repository.UserRepository;
+import cz.cvut.fit.household.repository.user.jpa.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
