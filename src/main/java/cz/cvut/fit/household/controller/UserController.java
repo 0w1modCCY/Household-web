@@ -1,11 +1,8 @@
 package cz.cvut.fit.household.controller;
 
-import cz.cvut.fit.household.datamodel.entity.HouseHold;
-import cz.cvut.fit.household.datamodel.entity.Membership;
 import cz.cvut.fit.household.datamodel.entity.User;
 import cz.cvut.fit.household.datamodel.enums.MembershipStatus;
 import cz.cvut.fit.household.repository.filter.MembershipFilter;
-import cz.cvut.fit.household.service.interfaces.HouseHoldService;
 import cz.cvut.fit.household.service.interfaces.MembershipService;
 import cz.cvut.fit.household.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 public class UserController {
