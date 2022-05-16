@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HouseholdController {
@@ -46,18 +47,17 @@ public class HouseholdController {
 
         membershipService.createMembership(membership, user, houseHold);;
 
-        MembershipFilter pendingHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.PENDING)
-                .build();
 
-        MembershipFilter activeHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.ACTIVE)
-                .build();
+        List<Membership> pendingMemberships =  user.getMemberships()
+                .stream().filter(mem -> membership.getStatus().equals(MembershipStatus.PENDING))
+                .collect(Collectors.toList());
 
-        model.addAttribute("pendingHouseholds", membershipService.filterMemberships(pendingHouseholds));
-        model.addAttribute("activeHouseholds", membershipService.filterMemberships(activeHouseholds));
+        List<Membership> activeMemberships =  user.getMemberships()
+                .stream().filter(mem -> membership.getStatus().equals(MembershipStatus.ACTIVE))
+                .collect(Collectors.toList());
+
+        model.addAttribute("pendingHouseholds", pendingMemberships);
+        model.addAttribute("activeHouseholds", activeMemberships);
         return "welcome";
     }
 
@@ -100,66 +100,68 @@ public class HouseholdController {
         membership.setStatus(MembershipStatus.PENDING);
 
         membershipService.createMembership(membership, user, houseHold);
-        model.addAttribute("users", userService.findAllUsers());
         return "invite-user";
     }
 
     @GetMapping("household/{householdId}/invitation/{membershipId}/accept")
     public String acceptInvitation(Authentication authentication, @PathVariable Long householdId, @PathVariable Long membershipId, Model model) {
+        User user = userService.findUserByUsername(authentication.getName())
+                .orElseThrow(() -> new RuntimeException());
+
         membershipService.acceptInvitation(membershipId);
 
-        MembershipFilter pendingHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.PENDING)
-                .build();
+        List<Membership> pendingMemberships =  user.getMemberships()
+                .stream().filter(membership -> membership.getStatus().equals(MembershipStatus.PENDING))
+                .collect(Collectors.toList());
 
-        MembershipFilter activeHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.ACTIVE)
-                .build();
+        List<Membership> activeMemberships =  user.getMemberships()
+                .stream().filter(membership -> membership.getStatus().equals(MembershipStatus.ACTIVE))
+                .collect(Collectors.toList());
 
-        model.addAttribute("pendingHouseholds", membershipService.filterMemberships(pendingHouseholds));
-        model.addAttribute("activeHouseholds", membershipService.filterMemberships(activeHouseholds));
+        model.addAttribute("pendingHouseholds", pendingMemberships);
+        model.addAttribute("activeHouseholds", activeMemberships);
         return "welcome";
     }
 
 
     @GetMapping("household/{householdId}/invitation/{membershipId}/decline")
     public String declineInvitation(Authentication authentication, @PathVariable Long householdId, @PathVariable Long membershipId, Model model) {
+        User user = userService.findUserByUsername(authentication.getName())
+                .orElseThrow(() -> new RuntimeException());
+
         membershipService.declineInvitation(membershipId);
 
-        MembershipFilter pendingHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.PENDING)
-                .build();
+        List<Membership> pendingMemberships =  user.getMemberships()
+                .stream().filter(membership -> membership.getStatus().equals(MembershipStatus.PENDING))
+                .collect(Collectors.toList());
 
-        MembershipFilter activeHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.ACTIVE)
-                .build();
+        List<Membership> activeMemberships =  user.getMemberships()
+                .stream().filter(membership -> membership.getStatus().equals(MembershipStatus.ACTIVE))
+                .collect(Collectors.toList());
 
-        model.addAttribute("pendingHouseholds", membershipService.filterMemberships(pendingHouseholds));
-        model.addAttribute("activeHouseholds", membershipService.filterMemberships(activeHouseholds));
+        model.addAttribute("pendingHouseholds", pendingMemberships);
+        model.addAttribute("activeHouseholds", activeMemberships);
         return "welcome";
     }
 
     @GetMapping("/household/{id}/delete")
     public String leaveHousehold(Authentication authentication, @PathVariable Long id, Model model) {
 
+        User user = userService.findUserByUsername(authentication.getName())
+                .orElseThrow(() -> new RuntimeException());
+
         membershipService.leaveHousehold(id);
 
-        MembershipFilter pendingHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.PENDING)
-                .build();
+        List<Membership> pendingMemberships =  user.getMemberships()
+                .stream().filter(membership -> membership.getStatus().equals(MembershipStatus.PENDING))
+                .collect(Collectors.toList());
 
-        MembershipFilter activeHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.ACTIVE)
-                .build();
+        List<Membership> activeMemberships =  user.getMemberships()
+                .stream().filter(membership -> membership.getStatus().equals(MembershipStatus.ACTIVE))
+                .collect(Collectors.toList());
 
-        model.addAttribute("pendingHouseholds", membershipService.filterMemberships(pendingHouseholds));
-        model.addAttribute("activeHouseholds", membershipService.filterMemberships(activeHouseholds));
+        model.addAttribute("pendingHouseholds", pendingMemberships);
+        model.addAttribute("activeHouseholds", activeMemberships);
         return "welcome";
     }
 }

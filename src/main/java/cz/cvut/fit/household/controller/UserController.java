@@ -1,5 +1,6 @@
 package cz.cvut.fit.household.controller;
 
+import cz.cvut.fit.household.datamodel.entity.Membership;
 import cz.cvut.fit.household.datamodel.entity.User;
 import cz.cvut.fit.household.datamodel.enums.MembershipStatus;
 import cz.cvut.fit.household.repository.filter.MembershipFilter;
@@ -10,9 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -46,31 +48,33 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("/users/search")
-    public String searchForUser(@RequestParam String searchTerm, Model model) {
+    @PostMapping("/{householdId}/users/search")
+    public String searchForUser(@PathVariable Long householdId, @RequestParam String searchTerm, Model model) {
 
         var users = userService.findUsersBySearchTerm(searchTerm);
 
         model.addAttribute("users", users);
-        model.addAttribute("householdId", 10L);
+        model.addAttribute("householdId", householdId);
+
         return "invite-user";
     }
 
     @GetMapping("/welcome")
     public String renderWelcomePage(Authentication authentication, Model model) {
 
-        MembershipFilter pendingHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.PENDING)
-                .build();
+        User user = userService.findUserByUsername(authentication.getName())
+                .orElseThrow(() -> new RuntimeException());
 
-        MembershipFilter activeHouseholds = MembershipFilter.builder()
-                .username(authentication.getName())
-                .status(MembershipStatus.ACTIVE)
-                .build();
+        List<Membership> pendingMemberships =  user.getMemberships()
+                .stream().filter(membership -> membership.getStatus().equals(MembershipStatus.PENDING))
+                .collect(Collectors.toList());
 
-        model.addAttribute("pendingHouseholds", membershipService.filterMemberships(pendingHouseholds));
-        model.addAttribute("activeHouseholds", membershipService.filterMemberships(activeHouseholds));
+        List<Membership> activeMemberships =  user.getMemberships()
+                .stream().filter(membership -> membership.getStatus().equals(MembershipStatus.ACTIVE))
+                .collect(Collectors.toList());
+
+        model.addAttribute("pendingHouseholds", pendingMemberships);
+        model.addAttribute("activeHouseholds", activeMemberships);
         return "welcome";
     }
 }
