@@ -83,8 +83,6 @@ public class HouseholdController {
 
     @GetMapping("/household/{id}/invite")
     public String renderInviteUserPage(@PathVariable Long id, Model model) {
-
-        model.addAttribute("users", userService.findAllUsers());
         model.addAttribute("householdId", id);
 
         return "invite-user";

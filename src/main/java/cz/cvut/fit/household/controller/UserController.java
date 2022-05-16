@@ -46,7 +46,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/users/search")
+    @PostMapping("/users/search")
     public String searchForUser(@RequestParam String searchTerm, Model model) {
 
         var users = userService.findUsersBySearchTerm(searchTerm);

@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findUsersBySearchTerm(String searchTerm) {
-        return userRepository.findUsersByUsernameStartingWith(searchTerm);
+        return userRepository.searchByUsername(searchTerm);
     }
 
     @Override

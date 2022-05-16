@@ -34,11 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest()
-                .permitAll()
-//                    .antMatchers("/static/**").permitAll()
-//                    .antMatchers(HttpMethod.POST, "/signup").permitAll()
-//                    .anyRequest().authenticated()
+                    .antMatchers("/styles/**").permitAll()
+                    .antMatchers("/images/**").permitAll()
+                    .antMatchers("/js/**").permitAll()
+                    .antMatchers(HttpMethod.POST, "/signup").permitAll()
+                    .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
@@ -48,8 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .logoutUrl("/logout")
                     .permitAll()
-//                    .and()
-
                 .and()
                 .csrf()
                 .disable();
