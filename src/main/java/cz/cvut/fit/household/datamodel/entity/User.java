@@ -17,18 +17,20 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
     @Id
+    @NotBlank(message = "Username is empty")
     private String username;
 
-    @NotNull
+    @NotBlank(message = "Password is empty")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "First name is empty")
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = "Last name is empty")
     private String lastName;
 
-    @Email
+    @Email(message = "Invalid format of email")
+    @NotBlank(message = "Email is empty")
     private String email;
 
     @OneToMany(mappedBy = "user")

@@ -20,7 +20,7 @@ public class HouseHold {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Title is empty")
     private String title;
 
     @OneToMany(mappedBy = "household", cascade = CascadeType.REMOVE)

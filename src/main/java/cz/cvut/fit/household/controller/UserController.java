@@ -11,8 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +44,11 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signUp(User user) {
+    public String signUp(@Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "sign-up";
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.createOrUpdateUser(user);
         return "login";

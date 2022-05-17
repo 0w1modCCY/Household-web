@@ -26,6 +26,10 @@
             color: #999;
             font-size: 0.9rem;
         }
+
+        .error {
+            color: red;
+        }
     </style>
 </head>
 
@@ -94,6 +98,12 @@
                             <a href="#" th:href="@{'/login'}" style="margin-left:5px;">Login</a>
                         </span>
                 </div>
+            </div>
+
+            <br>
+
+            <div th:if="${#fields.hasAnyErrors()}">
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="error"/>
             </div>
             <input type="submit" class="btn" value="Add User">
         </form>

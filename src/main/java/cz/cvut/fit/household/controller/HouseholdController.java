@@ -4,6 +4,7 @@ import cz.cvut.fit.household.datamodel.entity.HouseHold;
 import cz.cvut.fit.household.datamodel.entity.Membership;
 import cz.cvut.fit.household.datamodel.entity.User;
 import cz.cvut.fit.household.datamodel.enums.MembershipStatus;
+import cz.cvut.fit.household.exception.MembershipAlreadyExistsException;
 import cz.cvut.fit.household.repository.filter.MembershipFilter;
 import cz.cvut.fit.household.service.interfaces.HouseHoldService;
 import cz.cvut.fit.household.service.interfaces.MembershipService;
@@ -12,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +41,8 @@ public class HouseholdController {
     }
 
     @PostMapping("/households/add")
-    public String createHousehold(Authentication authentication, Model model,  @ModelAttribute HouseHold houseHold) {
+    public String createHousehold(Authentication authentication, Model model, @ModelAttribute HouseHold houseHold) {
+
         User user = userService.findUserByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Authenticated user no longer exists in the database"));
 
@@ -49,11 +53,11 @@ public class HouseholdController {
 
 
         List<Membership> pendingMemberships =  user.getMemberships()
-                .stream().filter(mem -> membership.getStatus().equals(MembershipStatus.PENDING))
+                .stream().filter(mem -> mem.getStatus().equals(MembershipStatus.PENDING))
                 .collect(Collectors.toList());
 
         List<Membership> activeMemberships =  user.getMemberships()
-                .stream().filter(mem -> membership.getStatus().equals(MembershipStatus.ACTIVE))
+                .stream().filter(mem -> mem.getStatus().equals(MembershipStatus.ACTIVE))
                 .collect(Collectors.toList());
 
         model.addAttribute("pendingHouseholds", pendingMemberships);
@@ -95,6 +99,17 @@ public class HouseholdController {
 
         HouseHold houseHold = householdService.findHouseHoldById(householdId)
                 .orElseThrow(() -> new RuntimeException("Household with given id does not exist"));
+
+        try {
+            houseHold.getMemberships()
+                    .forEach(membership -> {
+                        if (membership.getUser().getUsername().equals(username)) {
+                            throw new MembershipAlreadyExistsException("User with username: " + username + " is already a member of household with id: " + householdId);
+                        }
+                    });
+        } catch (MembershipAlreadyExistsException e) {
+            return "invite-user";
+        }
 
         Membership membership = new Membership();
         membership.setStatus(MembershipStatus.PENDING);
