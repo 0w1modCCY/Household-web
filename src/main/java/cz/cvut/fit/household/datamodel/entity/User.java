@@ -9,6 +9,15 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * User can create an account in application, and create household {@link HouseHold}. User also can
+ * manage items {@link Item}, invite other users {@link Membership}, or connect to another household.
+ *
+ * @see HouseHold
+ * @see Item
+ * @see Membership
+ * @see Authority
+ */
 @Entity
 @Table(name = "users")
 @Getter

@@ -10,6 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Record which can be saved in the household. User can check and monitor his consumption,
+ * using records.
+ */
 @Entity
 @Getter
 @Setter

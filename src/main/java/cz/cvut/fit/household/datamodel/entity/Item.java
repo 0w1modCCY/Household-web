@@ -9,6 +9,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+/**
+ * Item which has copies and category. Can be added/removed via household. User can
+ * save items, or search them.
+ *
+ * @see Copy
+ * @see Category
+ */
 @Entity
 @Getter
 @Setter

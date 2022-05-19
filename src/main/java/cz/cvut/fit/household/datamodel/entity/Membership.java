@@ -11,6 +11,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Membership of any household{@link HouseHold}, contains user {@link User}. Membership can manipulate
+ * user's tasks{@link Task}, or invites{@link MembershipStatus}. It is king of bridge between user and household.
+ *
+ * @see HouseHold
+ * @see Task
+ * @see MembershipStatus
+ */
 @Entity
 @Getter
 @Setter

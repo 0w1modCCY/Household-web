@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Any of known resource type, for which consumption in the household can be counted.
+ */
 @Entity
 @Getter
 @Setter

@@ -10,6 +10,14 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Household manages with the members, locations and tasks. Basically, it is a main class, which is
+ * connected to everything in the project.
+ *
+ * @see Membership
+ * @see Task
+ * @see Location
+ */
 @Entity
 @Getter
 @Setter

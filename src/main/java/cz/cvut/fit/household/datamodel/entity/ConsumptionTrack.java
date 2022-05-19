@@ -10,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Tracker which can make a records of the specific resource type.
+ */
 @Entity
 @Getter
 @Setter

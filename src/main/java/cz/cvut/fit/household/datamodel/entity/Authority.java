@@ -9,6 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * Authority of a user inside scope of the specific household.
+ *
+ * @see User
+ */
 @Entity
 @Getter
 @Setter

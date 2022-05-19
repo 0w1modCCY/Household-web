@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 
 
+/**
+ * Contains custom searching parameters, for filtering functions
+ */
 @Builder
 @Getter
 public class MembershipFilter {

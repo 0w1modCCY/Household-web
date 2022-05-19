@@ -9,7 +9,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Categories of the items, which provided to improve managing, and sorting
+ * items.
+ *
+ * @see Item
+ */
 @Entity
 @Getter
 @Setter

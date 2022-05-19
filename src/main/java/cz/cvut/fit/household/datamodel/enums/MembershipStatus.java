@@ -1,5 +1,8 @@
 package cz.cvut.fit.household.datamodel.enums;
 
+/**
+ * Statuses of the members invitation procedure.
+ */
 public enum MembershipStatus {
     ACTIVE("ACTIVE"),
     PENDING("PENDING"),

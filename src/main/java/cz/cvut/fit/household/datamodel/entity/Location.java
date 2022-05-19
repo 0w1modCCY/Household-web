@@ -11,6 +11,12 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Location uses household to find out copies of the item. Location can also have inner location.
+ *
+ * @see HouseHold
+ * @see Copy
+ */
 @Entity
 @Getter
 @Setter

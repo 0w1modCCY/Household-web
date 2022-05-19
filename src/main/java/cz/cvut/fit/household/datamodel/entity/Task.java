@@ -10,6 +10,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+/**
+ * Task which assigned for someone, and which someone is going to do. Each task has a deadline,
+ * after which task self-destruct.
+ *
+ * @see User
+ * @see Membership
+ */
 @Entity
 @Getter
 @Setter

@@ -7,7 +7,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-
+/**
+ * Copies of the specific item. Location of the copy records, so user can find out
+ * everything easily.
+ *
+ * @see Item
+ * @see Location
+ */
 @Entity
 @Getter
 @Setter
