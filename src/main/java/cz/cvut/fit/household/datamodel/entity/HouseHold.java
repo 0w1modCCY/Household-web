@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Household manages with the members, locations and tasks. Basically, it is a main class, which is
- * connected to everything in the project.
+ * Household is the main class of the application. Its purpose is to save general information about household and links
+ * to such entities as Task, Location, Memberships. All of mentioned entities can not exist without household.
  *
  * @see Membership
  * @see Task

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
- * Authority of a user inside scope of the specific household.
+ * Authority of a user inside the scope of the specific household.
  *
  * @see User
  */

@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * User can create an account in application, and create household {@link HouseHold}. User also can
- * manage items {@link Item}, invite other users {@link Membership}, or connect to another household.
+ * User class is responsible for storing general information about users of the application. User entity is created
+ * when new user is registered in the application. For more info read about authorities {@link Authority} and membership
+ * class {@link Membership}
  *
  * @see HouseHold
  * @see Item

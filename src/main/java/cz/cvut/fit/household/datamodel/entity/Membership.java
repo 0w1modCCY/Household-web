@@ -12,8 +12,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Membership of any household{@link HouseHold}, contains user {@link User}. Membership can manipulate
- * user's tasks{@link Task}, or invites{@link MembershipStatus}. It is king of bridge between user and household.
+ *
+ * Membership is a connection bridge between household and users, it stores basic information about current status of user in the household.
+ * New instance of membership is created whenever new user joins Household {@link HouseHold}. Every user can have multiple
+ * memberships (one for every household where he is a member).
+ * Membership has three possible states: ACTIVE, PENDING and DISABLED.
+ * ACTIVE - you are current member of the household.
+ * PENDING - you are invited to the household, but you did not accept or decline invitation yet.
+ * DISABLED - you either declined invitation or left household.
  *
  * @see HouseHold
  * @see Task
