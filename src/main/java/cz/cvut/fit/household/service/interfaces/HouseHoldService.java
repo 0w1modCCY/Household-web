@@ -7,29 +7,25 @@ import cz.cvut.fit.household.datamodel.entity.User;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * CRUD interface for households {@link HouseHold}. Also, interface has several
- * searching methods for the memberships{@link Membership}, and another households
- * using different parameters.
- *
- * @see HouseHold
- * @see Membership
- */
 public interface HouseHoldService {
 
     /**
+     * Create or update household.
+     *
      * @param houseHold which has to be saved
      * @return freshly saved household
      */
     HouseHold createOrUpdateHousehold(HouseHold houseHold);
 
     /**
+     * Retrieve all existing households.
+     *
      * @return all existed households in database
      */
     List<HouseHold> findAllHouseholds();
 
     /**
-     * Searching for the households, which has member with given username
+     * Retrieve all households where user with given username is a member.
      *
      * @param username of member{@link Membership}
      * @return list of households, which linked to given username
@@ -38,7 +34,7 @@ public interface HouseHoldService {
     List<HouseHold> findHouseholdsByUsername(String username);
 
     /**
-     * Searching for members{@link Membership} from the specific household, using id
+     * Retrieve all memberships of household with given id.
      *
      * @param id of the household
      * @return list of members in the household, with a given id
@@ -47,15 +43,15 @@ public interface HouseHoldService {
     List<Membership> findMembershipsByHouseholdId(Long id);
 
     /**
-     * Searching for household, using id
+     * Retrieve household with given id.
      *
      * @param id of the household
-     * @return household, if it exists by given id, otherwise null
+     * @return optional of household, if household with given id is present, otherwise empty optional.
      */
     Optional<HouseHold> findHouseHoldById(Long id);
 
     /**
-     * Searching and deleting of the household, using id
+     * Delete household by id.
      *
      * @param id of the household
      */

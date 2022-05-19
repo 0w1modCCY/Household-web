@@ -20,6 +20,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller which manages all requests related to households.
+ */
 @Controller
 public class HouseholdController {
 
@@ -34,12 +37,26 @@ public class HouseholdController {
         this.userService = userService;
     }
 
+    /**
+     * Render create household page.
+     *
+     * @param model model
+     * @return add-household page.
+     */
     @GetMapping("/households/add")
     public String renderCreateHouseholdPage(Model model) {
         model.addAttribute("houseHold", new HouseHold());
         return "add-household";
     }
 
+    /**
+     * Create new household.
+     *
+     * @param authentication
+     * @param model
+     * @param houseHold
+     * @return
+     */
     @PostMapping("/households/add")
     public String createHousehold(Authentication authentication, Model model, @ModelAttribute HouseHold houseHold) {
 
@@ -65,6 +82,13 @@ public class HouseholdController {
         return "welcome";
     }
 
+    /**
+     * Render page with all members of the household.
+     *
+     * @param model model
+     * @param id id
+     * @return members page
+     */
     @GetMapping("/household/{id}/members")
     public String renderHouseholdMembersPage(Model model, @PathVariable Long id) {
 
@@ -85,6 +109,13 @@ public class HouseholdController {
         return "members";
     }
 
+    /**
+     * Render invite user page.
+     *
+     * @param id id
+     * @param model model
+     * @return invite user page
+     */
     @GetMapping("/household/{id}/invite")
     public String renderInviteUserPage(@PathVariable Long id, Model model) {
         model.addAttribute("householdId", id);
@@ -92,6 +123,14 @@ public class HouseholdController {
         return "invite-user";
     }
 
+    /**
+     * Invite user.
+     *
+     * @param householdId
+     * @param username
+     * @param model
+     * @return invite user page
+     */
     @PostMapping("/household/{householdId}/invite")
     public String inviteUser(@PathVariable(name = "householdId") Long householdId, @RequestParam String username, Model model) {
         User user = userService.findUserByUsername(username)

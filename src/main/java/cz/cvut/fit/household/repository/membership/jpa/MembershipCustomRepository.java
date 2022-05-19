@@ -6,7 +6,7 @@ import cz.cvut.fit.household.repository.filter.MembershipFilter;
 import java.util.List;
 
 /**
- * Contains a filter method for the searching of the members in the household
+ * Interface which defines custom repository methods.
  */
 public interface MembershipCustomRepository {
 

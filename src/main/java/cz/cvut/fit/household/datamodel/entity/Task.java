@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
- * Task which assigned for someone, and which someone is going to do. Each task has a deadline,
- * after which task self-destruct.
+ *
+ * Task class represent task in the current household which can be optionally assigned to somebody and have deadline.
  *
  * @see User
  * @see Membership

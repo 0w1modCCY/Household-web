@@ -18,6 +18,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller which manages all requests related to users.
+ */
 @Controller
 public class UserController {
 
@@ -32,17 +35,30 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Render login page.
+     * @return login page
+     */
     @GetMapping("/login")
     public String renderLoginPage() {
         return "login";
     }
 
+    /**
+     * Render sign up page.
+     * @return sign up page
+     */
     @GetMapping("/signup")
     public String renderSignUpPage(Model model) {
         model.addAttribute("user", new User());
         return "sign-up";
     }
 
+    /**
+     * Create new user account.
+     *
+     * @return sign up page
+     */
     @PostMapping("/signup")
     public String signUp(@Valid User user, BindingResult result) {
         if (result.hasErrors()) {
@@ -54,6 +70,11 @@ public class UserController {
         return "login";
     }
 
+    /**
+     * Display all users matching search term.
+     *
+     * @return invite user page
+     */
     @PostMapping("/{householdId}/users/search")
     public String searchForUser(@PathVariable Long householdId, @RequestParam String searchTerm, Model model) {
 
@@ -65,6 +86,11 @@ public class UserController {
         return "invite-user";
     }
 
+    /**
+     * Render welcome page.
+     *
+     * @return welcome page
+     */
     @GetMapping("/welcome")
     public String renderWelcomePage(Authentication authentication, Model model) {
 

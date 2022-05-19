@@ -5,6 +5,9 @@ import cz.cvut.fit.household.repository.household.AbstractHouseHoldRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repository class for management of household entities in the database.
+ */
 @Repository
 public interface HouseHoldRepository extends JpaRepository<HouseHold, Long>, AbstractHouseHoldRepository {
 }

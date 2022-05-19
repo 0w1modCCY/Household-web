@@ -9,12 +9,6 @@ import cz.cvut.fit.household.repository.filter.MembershipFilter;
 
 import java.util.List;
 
-/**
- * Interface which provides basic CRUD operations over members {@link Membership}, and
- * handling of invitation procedure
- *
- * @see Membership
- */
 public interface MembershipService {
 
     /**
@@ -22,16 +16,18 @@ public interface MembershipService {
      * household {@link HouseHold}. Method adds new membership to user and household,
      * then it saves membership in database
      *
-     * @param membership which is going to be added to database
-     * @param user whose will have new membership
-     * @param houseHold which will has new member
-     * @return freshly saved membership
+     * @param membership membership which is going to be added to database
+     * @param user author of the membership
+     * @param houseHold houseHold
+     * @return created membership
      * @see User
      * @see HouseHold
      */
     Membership createMembership(Membership membership, User user, HouseHold houseHold);
 
     /**
+     * Retrieve all existing memberships.
+     *
      * @return all existed memberships in database
      */
     List<Membership> findAllMemberships();
@@ -44,7 +40,7 @@ public interface MembershipService {
 
     /**
      * Searching for the membership, using id. Updating the status {@link MembershipStatus}
-     * of it to <b>"ACTIVE"</b>. Member is accepted to another household {@link HouseHold}.
+     * of it to <b>"ACTIVE"</b>.
      *
      * @param membershipId is an id of needed membership
      * @throws NonExistentEntityException
@@ -55,7 +51,7 @@ public interface MembershipService {
 
     /**
      * Searching for the membership, using id. Updating the status {@link MembershipStatus}
-     * of it to <b>"DISABLE"</b>. Member declined household {@link HouseHold}.
+     * of it to <b>"DISABLE"</b>.
      *
      * @param membershipId is an id of needed membership
      * @throws NonExistentEntityException
@@ -66,7 +62,7 @@ public interface MembershipService {
 
     /**
      * Searching for the membership, using id. Updating the status {@link MembershipStatus}
-     * of it to <b>"DISABLE"</b>. Member left household {@link HouseHold}.
+     * of it to <b>"DISABLE"</b>.
      *
      * @param id of needed membership
      * @throws NonExistentEntityException
@@ -76,7 +72,7 @@ public interface MembershipService {
     void leaveHousehold(Long id);
 
     /**
-     * Searching for the members, using any specific format
+     * Searching for the members matching any parameters you want.
      *
      * @param membershipFilter is a format with right parameters
      * @return list of members, which matched with given filter-format

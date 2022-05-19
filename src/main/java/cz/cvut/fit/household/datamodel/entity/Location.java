@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Location uses household to find out copies of the item. Location can also have inner location.
+ * Location class represent location of the household where items can be possibly located. Sublocations are possible.
  *
  * @see HouseHold
  * @see Copy
