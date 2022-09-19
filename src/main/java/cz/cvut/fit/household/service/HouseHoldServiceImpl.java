@@ -1,7 +1,9 @@
 package cz.cvut.fit.household.service;
 
+import cz.cvut.fit.household.datamodel.entity.Category;
 import cz.cvut.fit.household.datamodel.entity.HouseHold;
 import cz.cvut.fit.household.datamodel.entity.Membership;
+import cz.cvut.fit.household.exception.NonExistentEntityException;
 import cz.cvut.fit.household.repository.HouseHoldRepository;
 import cz.cvut.fit.household.service.interfaces.HouseHoldService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,10 @@ public class HouseHoldServiceImpl implements HouseHoldService {
     @Override
     public List<Membership> findMembershipsByHouseholdId(Long id) {
         return houseHoldRepository.findById(id).get().getMemberships();
+    }
+
+    public List<Category> findCategoriesByHouseholdId(Long id) {
+        return houseHoldRepository.findById(id).orElseThrow(() -> new NonExistentEntityException("household doesn't exist")).getCategories();
     }
 
     @Override
