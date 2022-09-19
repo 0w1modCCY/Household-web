@@ -1,4 +1,4 @@
-package cz.cvut.fit.household.datamodel.converter;
+package cz.cvut.fit.household.datamodel.converter.interfaces;
 
 import cz.cvut.fit.household.datamodel.dto.user.UserPostDTO;
 import cz.cvut.fit.household.datamodel.dto.user.UserResponseDTO;

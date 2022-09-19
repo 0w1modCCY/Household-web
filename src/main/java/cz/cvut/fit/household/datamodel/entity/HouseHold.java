@@ -33,6 +33,9 @@ public class HouseHold {
 //    @OneToMany(mappedBy = "houseHold")
 //    private List<Location> locations;
 
+    @OneToMany(mappedBy = "houseHold")
+    private List<ConsumptionRecord> consumptionRecords;
+
     public void addMembership(Membership membership) {
         memberships.add(membership);
         membership.setHouseHold(this);
